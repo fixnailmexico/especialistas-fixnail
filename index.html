@@ -30,14 +30,14 @@ let refreshSequence=0;
 let editingProfileId=null;
 const profileFields=["nombre","telefono","ciudad","estado","fechaIncorporacion"];
 function publicRef(uid){return doc(db,"especialistasPublicos",uid);}
-function publicFields(u,uid){return {usuarioId:uid,nombre:String(u.nombre||""),estado:String(u.estado||""),ciudad:String(u.ciudad||""),activo:u.activo===true,autorizado:true,publicado:true,actualizadoEn:serverTimestamp()};}
+function publicFields(u,uid){return {usuarioId:uid,nombre:String(u.nombre||""),estado:String(u.estado||""),ciudad:String(u.ciudad||""),telefonoPublico:String(u.telefono||""),activo:u.activo===true,autorizado:true,publicado:true,actualizadoEn:serverTimestamp()};}
 
 function cleanField(id){return $(id).value.trim();}
 function hideProfileEditor(){editingProfileId=null;$("profileEditor").classList.add("hidden");}
 $("cancelProfile").addEventListener("click",hideProfileEditor);
 $("editProfileForm").addEventListener("submit",async e=>{e.preventDefault();if(!isAdmin||!editingProfileId)return;const button=$("saveProfile");button.disabled=true;try{const data={nombre:cleanField("editName"),telefono:cleanField("editPhone"),ciudad:selectedCity("edit"),estado:cleanField("editState"),fechaIncorporacion:$("editJoinDate").value,actualizadoEn:serverTimestamp()};if(!data.nombre)throw new Error("El nombre es obligatorio.");const batch=writeBatch(db);batch.update(doc(db,"usuarios",editingProfileId),data);
 const pub=publicCache.get(editingProfileId);
-if(pub){batch.update(publicRef(editingProfileId),{nombre:data.nombre,estado:data.estado,ciudad:data.ciudad,actualizadoEn:serverTimestamp()});}
+if(pub){batch.update(publicRef(editingProfileId),{nombre:data.nombre,estado:data.estado,ciudad:data.ciudad,telefonoPublico:data.telefono,actualizadoEn:serverTimestamp()});}
 await batch.commit();hideProfileEditor();setStatus("adminStatus","Ficha del especialista actualizada.");await refreshSpecialists();}catch(err){setStatus("adminStatus","No se pudo guardar la ficha: "+(err.code||err.message),true);}finally{button.disabled=false;}});
 function renderSpecialists(){
   const body=$('specialistRows');body.replaceChildren();
@@ -73,7 +73,7 @@ function renderSpecialists(){
       }
       if(u.activo!==true){alert('Primero debes activar la cuenta del especialista.');return;}
       if(!u.nombre||!u.estado||!u.ciudad){alert('Completa nombre, estado y ciudad antes de publicar.');return;}
-      if(!confirm('CONFIRMACIÓN DE CONSENTIMIENTO: ¿El especialista '+u.nombre+' autorizó expresamente publicar su NOMBRE, ESTADO y CIUDAD en el directorio público? No se publicará su teléfono ni correo.'))return;
+      if(!confirm('CONFIRMACIÓN DE CONSENTIMIENTO: ¿El especialista '+u.nombre+' autorizó expresamente publicar su NOMBRE, ESTADO y CIUDAD en el directorio público? También se publicará su TELÉFONO registrado: '+(u.telefono||'sin teléfono')+'. El correo de acceso NO se publicará.'))return;
       publicButton.disabled=true;
       try{
         const data=publicFields(u,record.id);
