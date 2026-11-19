@@ -1,7 +1,10 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Especialistas FixNail</title><style>
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#153047;background:#edf7f8}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 10% 5%,#b9f2e9,transparent 38%),linear-gradient(135deg,#e9f6ff,#f8fcfd)}main{width:min(100%,470px);transition:width .2s ease;background:white;border-radius:22px;box-shadow:0 18px 55px #123a5030;overflow:hidden}.hero{padding:32px;background:linear-gradient(120deg,#102d49,#157c7d);color:white}.hero small{color:#a9f3e8;font-weight:700;letter-spacing:.07em}.hero h1{margin:9px 0;font-size:29px}.hero p{margin:0;color:#e2f4f6}.content{padding:28px}label{display:block;font-weight:650;font-size:14px;margin:16px 0 7px}input{width:100%;padding:13px;border:1px solid #b6cbd3;border-radius:10px;font:inherit}button{cursor:pointer;font:inherit;border:0;border-radius:10px;padding:13px 17px;font-weight:700}button.primary{background:#087d80;color:white;width:100%;margin-top:20px}button.link{background:transparent;color:#087d80;padding:10px 0}button:disabled{opacity:.55;cursor:wait}.status{margin-top:14px;font-size:14px;line-height:1.5;min-height:20px}.status.error{color:#a72d2d}.status.ok{color:#076b5b}.panel{background:#edf8f7;border-radius:12px;padding:18px;margin-top:14px}.muted{color:#58717b;font-size:13px}.hidden{display:none}main.wide{width:min(100%,1280px)}.admin-tools{margin:18px 0;padding:18px;border:1px solid #b8dfe0;border-radius:15px;background:#f6fcfc}.admin-tools h3{margin:0 0 8px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.admin-grid label{margin:6px 0}.admin-tools .primary{margin-top:10px}.admin-list{width:100%;border-collapse:collapse;margin-top:12px}.admin-list td,.admin-list th{text-align:left;border-bottom:1px solid #d6e5e8;padding:10px 7px;font-size:13px;overflow-wrap:anywhere}.admin-list button{padding:8px 10px;background:#dff1ef;color:#075e60}.admin-list button.danger{background:#ffe8e6;color:#a32626}.admin-tools .secondary{background:#e3f1f4;color:#16485c}.admin-scroll{overflow-x:auto}.profile-edit{margin:16px 0;padding:16px;border:1px solid #b8dfe0;border-radius:12px;background:#eaf7f7}.profile-edit h4{margin:0 0 10px}.profile-edit .secondary{margin-top:10px;margin-right:8px}.admin-list button.publish{background:#dff6e8;color:#146344;margin-right:6px}.admin-list button.edit{background:#e5eefe;color:#164d83;margin-right:6px}.admin-grid input,.admin-grid select{background:white}.admin-grid select{width:100%;padding:13px;border:1px solid #b6cbd3;border-radius:10px;font:inherit}.admin-grid .hidden{display:none}@media(max-width:650px){.admin-grid{grid-template-columns:1fr}}main.wide .content{padding:clamp(12px,2vw,28px)}.admin-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0 12px}.admin-stat{background:#e8f5f5;border:1px solid #d0e7e8;border-radius:12px;padding:12px}.admin-stat strong{display:block;font-size:26px;color:#087d80}.admin-stat span{font-size:13px;color:#385c68}.admin-search-row{display:flex;gap:12px;align-items:end;flex-wrap:wrap}.admin-search-row .search-field{flex:1;min-width:190px}.admin-search-row label{margin:0 0 6px}.admin-search-row input{background:#fff}@media(max-width:480px){.admin-stats{grid-template-columns:1fr 1fr}.admin-stat:first-child{grid-column:span 2}}footer{text-align:center;padding:0 20px 22px;color:#6a8088;font-size:12px}
-</style></head><body><main><header class="hero"><small>FIXNAIL · SISTEMA SUMHA</small><h1>Especialistas FixNail</h1><p>Acceso exclusivo para profesionales autorizados</p></header><section class="content"><div id="loginView"><form id="loginForm"><label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="username" required placeholder="tu@correo.com"><label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" required minlength="6" placeholder="Tu contraseña"><button id="loginBtn" class="primary" type="submit">Iniciar sesión</button></form><button id="resetBtn" class="link" type="button">¿Olvidaste tu contraseña?</button><div id="loginStatus" class="status" role="status" aria-live="polite"></div></div><div id="panelView" class="hidden"><h2 id="welcome">Bienvenido</h2><div class="panel"><strong id="roleLabel"></strong><p id="panelInfo"></p></div><section id="adminTools" class="admin-tools hidden" aria-label="Administrar especialistas"><h3>Administrar especialistas FixNail</h3><p class="muted">Solo administradores pueden gestionar cuentas. El botón «Autorizar mapa» requiere consentimiento expreso y publica únicamente nombre, estado y ciudad. No se pueden modificar administradores.</p><form id="newSpecialistForm"><div class="admin-grid"><div><label for="newName">Nombre del especialista</label><input id="newName" required maxlength="100" placeholder="Nombre y apellidos"></div><div><label for="newEmail">Correo electrónico</label><input id="newEmail" type="email" required autocomplete="off" placeholder="correo@ejemplo.com"></div></div><div class="admin-grid"><div><label for="newPhone">Teléfono (opcional)</label><input id="newPhone" type="tel" maxlength="25" placeholder="Ej. +52 415 123 4567"></div><div><label for="newCity">Ciudad (opcional)</label><select id="newCity" required disabled><option value="">Primero selecciona un estado</option></select><input id="newCityOther" class="hidden" maxlength="100" placeholder="Escribe ciudad o localidad" aria-label="Otra ciudad o localidad"></div><div><label for="newCountry">País</label><select id="newCountry" required><option value="">Selecciona un país</option><option value="México">🇲🇽 México</option><option value="Estados Unidos">🇺🇸 Estados Unidos</option><option value="Guatemala">🇬🇹 Guatemala</option><option value="Costa Rica">🇨🇷 Costa Rica</option><option value="El Salvador">🇸🇻 El Salvador</option><option value="Honduras">🇭🇳 Honduras</option><option value="Nicaragua">🇳🇮 Nicaragua</option><option value="Panamá">🇵🇦 Panamá</option><option value="Colombia">🇨🇴 Colombia</option><option value="Perú">🇵🇪 Perú</option><option value="Ecuador">🇪🇨 Ecuador</option><option value="Chile">🇨🇱 Chile</option><option value="Argentina">🇦🇷 Argentina</option><option value="Brasil">🇧🇷 Brasil</option><option value="España">🇪🇸 España</option><option value="Canadá">🇨🇦 Canadá</option><option value="Otro país">🌎 Otro país</option></select><input id="newCountryOther" class="hidden" maxlength="100" placeholder="Escribe el país" aria-label="Nombre del país"></div><div><label for="newState">Estado (opcional)</label><select id="newState" required><option value="">Selecciona un estado</option></select><input id="newStateOther" class="hidden" maxlength="100" placeholder="Estado, provincia o departamento" aria-label="Estado o provincia"></div><div><label for="newJoinDate">Fecha de incorporación (opcional)</label><input id="newJoinDate" type="date"></div></div><button id="createSpecialistBtn" type="submit" class="primary">Crear especialista con contraseña temporal</button></form><div id="newCredentials" class="panel hidden" aria-live="polite"><strong>Cuenta creada. Entrega estos datos de manera privada:</strong><p id="credentialsText" style="white-space:pre-wrap;overflow-wrap:anywhere"></p><button type="button" id="copyCredentials" class="secondary">Copiar datos</button><p class="muted">La contraseña temporal solo se muestra ahora. Pide al especialista que la cambie con «¿Olvidaste tu contraseña?» después de ingresar.</p></div><div id="adminStatus" class="status" role="status" aria-live="polite"></div><div class="admin-stats" aria-label="Resumen de especialistas"><div class="admin-stat"><strong id="countTotal">—</strong><span>Total</span></div><div class="admin-stat"><strong id="countActive">—</strong><span>Activos</span></div><div class="admin-stat"><strong id="countInactive">—</strong><span>Inactivos</span></div></div><div class="admin-search-row"><div class="search-field"><label for="searchSpecialists">Buscar por nombre, correo, ciudad, estado o país</label><input id="searchSpecialists" type="search" placeholder="Escribe un nombre o correo" autocomplete="off"></div><button id="refreshSpecialists" type="button" class="secondary">Actualizar lista</button></div><p class="muted" id="searchResults" role="status" aria-live="polite">Especialistas registrados</p><div id="profileEditor" class="profile-edit hidden"><h4>Editar ficha del especialista</h4><form id="editProfileForm"><div class="admin-grid"><div><label for="editName">Nombre completo</label><input id="editName" maxlength="100" required></div><div><label for="editPhone">Teléfono</label><input id="editPhone" type="tel" maxlength="25"></div><div><label for="editCity">Ciudad</label><select id="editCity" required disabled><option value="">Primero selecciona un estado</option></select><input id="editCityOther" class="hidden" maxlength="100" placeholder="Escribe ciudad o localidad" aria-label="Otra ciudad o localidad"></div><div><label for="editCountry">País</label><select id="editCountry" required><option value="">Selecciona un país</option><option value="México">🇲🇽 México</option><option value="Estados Unidos">🇺🇸 Estados Unidos</option><option value="Guatemala">🇬🇹 Guatemala</option><option value="Costa Rica">🇨🇷 Costa Rica</option><option value="El Salvador">🇸🇻 El Salvador</option><option value="Honduras">🇭🇳 Honduras</option><option value="Nicaragua">🇳🇮 Nicaragua</option><option value="Panamá">🇵🇦 Panamá</option><option value="Colombia">🇨🇴 Colombia</option><option value="Perú">🇵🇪 Perú</option><option value="Ecuador">🇪🇨 Ecuador</option><option value="Chile">🇨🇱 Chile</option><option value="Argentina">🇦🇷 Argentina</option><option value="Brasil">🇧🇷 Brasil</option><option value="España">🇪🇸 España</option><option value="Canadá">🇨🇦 Canadá</option><option value="Otro país">🌎 Otro país</option></select><input id="editCountryOther" class="hidden" maxlength="100" placeholder="Escribe el país" aria-label="Nombre del país"></div><div><label for="editState">Estado</label><select id="editState" required><option value="">Selecciona un estado</option></select><input id="editStateOther" class="hidden" maxlength="100" placeholder="Estado, provincia o departamento" aria-label="Estado o provincia"></div><div><label for="editJoinDate">Fecha de incorporación</label><input id="editJoinDate" type="date"></div></div><button type="submit" class="secondary" id="saveProfile">Guardar ficha</button><button type="button" class="secondary" id="cancelProfile">Cancelar</button></form></div><div class="admin-scroll"><table class="admin-list"><thead><tr><th>Especialista</th><th>Correo</th><th>Ciudad / Estado / País</th><th>Teléfono</th><th>Incorporación</th><th>Estado</th><th>Mapa público</th><th>Acción</th></tr></thead><tbody id="specialistRows"><tr><td colspan="7">Cargando…</td></tr></tbody></table></div></section><iframe id="sumhaFrame" title="SUMHA Profesional" loading="eager" referrerpolicy="no-referrer" style="width:100%;height:85vh;min-height:680px;border:1px solid #cfe2e8;border-radius:14px;background:#f4f8fa;margin:16px 0"></iframe><button id="logoutBtn" class="primary" type="button">Cerrar sesión</button><div id="panelStatus" class="status" role="status" aria-live="polite"></div></div></section><footer>Comunidad FixNail · Acceso controlado mediante Firebase</footer></main>
+.fix-permission-filters{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:12px 0 14px;padding:12px;border:1px solid #cfe3e8;border-radius:12px;background:#f2f9fa}.fix-permission-filters label{font-weight:700;font-size:13px}.fix-permission-filters select{min-width:195px;max-width:100%;padding:9px;border:1px solid #b6d4da;border-radius:8px;background:#fff}.fix-permission-filters #fixVideoCounts{font-size:13px;color:#31525c}.fix-video-pill{display:inline-block;border-radius:99px;padding:5px 9px;font-size:12px;font-weight:700;white-space:nowrap}.fix-video-pill.yes{color:#14653d;background:#dff5e8}.fix-video-pill.no{color:#8c3535;background:#fde8e8}.fix-video-pill.unknown{color:#5a5f67;background:#eceff2}
+</style><style>
+#fixDashboard{margin:18px 0}#sumhaFrame.hidden{display:none}.fix-hero{background:linear-gradient(125deg,#0b2948,#078c88);color:#fff;padding:24px;border-radius:18px}.fix-hero h2{margin:6px 0}.fix-hero p{margin:0;color:#d4f5f2}.fix-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0}.fix-tile{border:1px solid #c7e2e4;border-radius:15px;padding:22px;background:#f4fbfb;text-align:left;color:#153047;min-height:135px}.fix-tile strong{display:block;font-size:19px;margin:10px 0 6px}.fix-tile span{color:#526d77;font-size:14px}.fix-tile .fix-emoji{font-size:30px}.fix-tile:focus-visible,.fix-tile:hover{outline:2px solid #087d80}.fix-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:15px 0}.fix-toolbar button,.fix-small{background:#e1f2f2;color:#075c60}.fix-video{max-width:800px;margin:14px auto}.fix-video iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#111}.fix-muted{color:#58717b;font-size:14px}.fix-video-admin{padding:14px;background:#eef8f8;border:1px solid #c3e1e2;border-radius:12px;margin:15px 0}.fix-video-admin label{display:flex;gap:10px;align-items:center}.fix-video-admin input[type=checkbox]{width:auto}.fix-video-admin select{padding:10px;border-radius:8px;max-width:100%;width:100%;border:1px solid #a9cbd1}.fix-video-admin button{margin-top:10px;background:#087d80;color:white}@media(max-width:620px){.fix-grid{grid-template-columns:1fr}}
+</style></head><body><main><header class="hero"><small>FIXNAIL · SISTEMA SUMHA</small><h1>Especialistas FixNail</h1><p>Acceso exclusivo para profesionales autorizados</p></header><section class="content"><div id="loginView"><form id="loginForm"><label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="username" required placeholder="tu@correo.com"><label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" required minlength="6" placeholder="Tu contraseña"><button id="loginBtn" class="primary" type="submit">Iniciar sesión</button></form><button id="resetBtn" class="link" type="button">¿Olvidaste tu contraseña?</button><div id="loginStatus" class="status" role="status" aria-live="polite"></div></div><div id="panelView" class="hidden"><h2 id="welcome">Bienvenido</h2><div class="panel"><strong id="roleLabel"></strong><p id="panelInfo"></p></div><section id="fixDashboard" class="hidden" aria-label="Panel del especialista FixNail"><div class="fix-hero"><small>COMUNIDAD FIXNAIL</small><h2>Panel del Especialista FixNail</h2><p>Herramientas y capacitación profesional en un solo lugar.</p></div><div class="fix-grid"><button type="button" id="fixOpenSumha" class="fix-tile"><span class="fix-emoji">📐</span><strong>Sistema SUMHA</strong><span>Medición y evaluación ungueal · Disponible para cuentas activas</span></button><button type="button" id="fixOpenVideos" class="fix-tile"><span class="fix-emoji">🎬</span><strong>Videoteca FixNail</strong><span>Aplicaciones de ortonixia · Videos con autorización individual</span></button><button type="button" id="fixOpenAdmin" class="fix-tile hidden"><span class="fix-emoji">🛡️</span><strong>Administración FixNail</strong><span>Especialistas, mapa y permisos de videos</span></button></div></section><div id="fixNavigation" class="fix-toolbar hidden"><button type="button" id="fixBackDashboard">← Regresar al panel</button><strong id="fixSectionTitle"></strong></div><section id="fixVideoSection" class="hidden" aria-label="Videoteca privada"><h3>Videoteca FixNail</h3><p class="fix-muted">Los videos se muestran según tu autorización. Para reproducirlos, tu cuenta de Google también debe tener permiso sobre el archivo privado.</p><div id="fixVideoAllowed" class="fix-video hidden"><h4>Aplicación exitosa de resina FixNail</h4><div id="fixVideoPlayer"></div><p class="fix-muted">Video privado alojado en Google Drive. Si Google solicita acceso, inicia sesión con la cuenta de Google autorizada.</p></div><div id="fixVideoDenied" class="panel hidden"><strong>🔒 Video no autorizado</strong><p>Tu cuenta todavía no tiene permiso para este video. Solicita acceso al administrador de FixNail.</p></div><div id="fixVideoLoading" class="panel">Comprobando permisos de capacitación…</div></section><section id="adminTools" class="admin-tools hidden" aria-label="Administrar especialistas"><h3>Administrar especialistas FixNail</h3><div id="fixVideoAdmin" class="fix-video-admin hidden"><strong id="fixVideoAdminName">Permisos de videos</strong><p class="fix-muted">Solo habilita el video si también compartiste el archivo privado de Google Drive con el correo de Google correspondiente.</p><label><input type="checkbox" id="fixVideoPermissionCheck"> Autorizar: Aplicación exitosa de resina FixNail</label><button type="button" id="fixSaveVideoPermission">Guardar permiso</button><button type="button" id="fixCancelVideoPermission" class="secondary">Cancelar</button><div id="fixVideoPermissionStatus" class="status"></div></div><p class="muted">Solo administradores pueden gestionar cuentas. El botón «Autorizar mapa» requiere consentimiento expreso y publica únicamente nombre, estado y ciudad. No se pueden modificar administradores.</p><form id="newSpecialistForm"><div class="admin-grid"><div><label for="newName">Nombre del especialista</label><input id="newName" required maxlength="100" placeholder="Nombre y apellidos"></div><div><label for="newEmail">Correo electrónico</label><input id="newEmail" type="email" required autocomplete="off" placeholder="correo@ejemplo.com"></div></div><div class="admin-grid"><div><label for="newPhone">Teléfono (opcional)</label><input id="newPhone" type="tel" maxlength="25" placeholder="Ej. +52 415 123 4567"></div><div><label for="newCity">Ciudad (opcional)</label><select id="newCity" required disabled><option value="">Primero selecciona un estado</option></select><input id="newCityOther" class="hidden" maxlength="100" placeholder="Escribe ciudad o localidad" aria-label="Otra ciudad o localidad"></div><div><label for="newCountry">País</label><select id="newCountry" required><option value="">Selecciona un país</option><option value="México">🇲🇽 México</option><option value="Estados Unidos">🇺🇸 Estados Unidos</option><option value="Guatemala">🇬🇹 Guatemala</option><option value="Costa Rica">🇨🇷 Costa Rica</option><option value="El Salvador">🇸🇻 El Salvador</option><option value="Honduras">🇭🇳 Honduras</option><option value="Nicaragua">🇳🇮 Nicaragua</option><option value="Panamá">🇵🇦 Panamá</option><option value="Colombia">🇨🇴 Colombia</option><option value="Perú">🇵🇪 Perú</option><option value="Ecuador">🇪🇨 Ecuador</option><option value="Chile">🇨🇱 Chile</option><option value="Argentina">🇦🇷 Argentina</option><option value="Brasil">🇧🇷 Brasil</option><option value="España">🇪🇸 España</option><option value="Canadá">🇨🇦 Canadá</option><option value="Otro país">🌎 Otro país</option></select><input id="newCountryOther" class="hidden" maxlength="100" placeholder="Escribe el país" aria-label="Nombre del país"></div><div><label for="newState">Estado (opcional)</label><select id="newState" required><option value="">Selecciona un estado</option></select><input id="newStateOther" class="hidden" maxlength="100" placeholder="Estado, provincia o departamento" aria-label="Estado o provincia"></div><div><label for="newJoinDate">Fecha de incorporación (opcional)</label><input id="newJoinDate" type="date"></div></div><button id="createSpecialistBtn" type="submit" class="primary">Crear especialista con contraseña temporal</button></form><div id="newCredentials" class="panel hidden" aria-live="polite"><strong>Cuenta creada. Entrega estos datos de manera privada:</strong><p id="credentialsText" style="white-space:pre-wrap;overflow-wrap:anywhere"></p><button type="button" id="copyCredentials" class="secondary">Copiar datos</button><p class="muted">La contraseña temporal solo se muestra ahora. Pide al especialista que la cambie con «¿Olvidaste tu contraseña?» después de ingresar.</p></div><div id="adminStatus" class="status" role="status" aria-live="polite"></div><div class="admin-stats" aria-label="Resumen de especialistas"><div class="admin-stat"><strong id="countTotal">—</strong><span>Total</span></div><div class="admin-stat"><strong id="countActive">—</strong><span>Activos</span></div><div class="admin-stat"><strong id="countInactive">—</strong><span>Inactivos</span></div></div><div class="admin-search-row"><div class="search-field"><label for="searchSpecialists">Buscar por nombre, correo, ciudad, estado o país</label><input id="searchSpecialists" type="search" placeholder="Escribe un nombre o correo" autocomplete="off"></div><button id="refreshSpecialists" type="button" class="secondary">Actualizar lista</button></div><div class="fix-permission-filters"><label for="fixVideoFilter">Filtrar por permiso de video</label><select id="fixVideoFilter"><option value="todos">Todos los especialistas</option><option value="autorizado">✓ Autorizados</option><option value="no-autorizado">✕ Sin permiso</option><option value="pendiente">? Sin verificar</option></select><button type="button" id="fixReloadVideoPermissions" class="secondary">Actualizar permisos</button><span id="fixVideoCounts" role="status" aria-live="polite">Consultando permisos…</span></div><p class="muted" id="searchResults" role="status" aria-live="polite">Especialistas registrados</p><div id="profileEditor" class="profile-edit hidden"><h4>Editar ficha del especialista</h4><form id="editProfileForm"><div class="admin-grid"><div><label for="editName">Nombre completo</label><input id="editName" maxlength="100" required></div><div><label for="editPhone">Teléfono</label><input id="editPhone" type="tel" maxlength="25"></div><div><label for="editCity">Ciudad</label><select id="editCity" required disabled><option value="">Primero selecciona un estado</option></select><input id="editCityOther" class="hidden" maxlength="100" placeholder="Escribe ciudad o localidad" aria-label="Otra ciudad o localidad"></div><div><label for="editCountry">País</label><select id="editCountry" required><option value="">Selecciona un país</option><option value="México">🇲🇽 México</option><option value="Estados Unidos">🇺🇸 Estados Unidos</option><option value="Guatemala">🇬🇹 Guatemala</option><option value="Costa Rica">🇨🇷 Costa Rica</option><option value="El Salvador">🇸🇻 El Salvador</option><option value="Honduras">🇭🇳 Honduras</option><option value="Nicaragua">🇳🇮 Nicaragua</option><option value="Panamá">🇵🇦 Panamá</option><option value="Colombia">🇨🇴 Colombia</option><option value="Perú">🇵🇪 Perú</option><option value="Ecuador">🇪🇨 Ecuador</option><option value="Chile">🇨🇱 Chile</option><option value="Argentina">🇦🇷 Argentina</option><option value="Brasil">🇧🇷 Brasil</option><option value="España">🇪🇸 España</option><option value="Canadá">🇨🇦 Canadá</option><option value="Otro país">🌎 Otro país</option></select><input id="editCountryOther" class="hidden" maxlength="100" placeholder="Escribe el país" aria-label="Nombre del país"></div><div><label for="editState">Estado</label><select id="editState" required><option value="">Selecciona un estado</option></select><input id="editStateOther" class="hidden" maxlength="100" placeholder="Estado, provincia o departamento" aria-label="Estado o provincia"></div><div><label for="editJoinDate">Fecha de incorporación</label><input id="editJoinDate" type="date"></div></div><button type="submit" class="secondary" id="saveProfile">Guardar ficha</button><button type="button" class="secondary" id="cancelProfile">Cancelar</button></form></div><div class="admin-scroll"><table class="admin-list"><thead><tr><th>Especialista</th><th>Correo</th><th>Ciudad / Estado / País</th><th>Teléfono</th><th>Incorporación</th><th>Estado</th><th>Mapa público</th><th>Acción</th><th>Permiso de video</th><th>Videos</th></tr></thead><tbody id="specialistRows"><tr><td colspan="10">Cargando…</td></tr></tbody></table></div></section><iframe id="sumhaFrame" class="hidden" title="SUMHA Profesional" loading="eager" referrerpolicy="no-referrer" style="width:100%;height:85vh;min-height:680px;border:1px solid #cfe2e8;border-radius:14px;background:#f4f8fa;margin:16px 0"></iframe><button id="logoutBtn" class="primary" type="button">Cerrar sesión</button><div id="panelStatus" class="status" role="status" aria-live="polite"></div></div></section><footer>Comunidad FixNail · Acceso controlado mediante Firebase</footer></main>
 <script type="module">
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js';
 import {getAuth,signInWithEmailAndPassword,sendPasswordResetEmail,signOut,onAuthStateChanged,createUserWithEmailAndPassword} from 'https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js';
@@ -45,6 +48,80 @@ for(const prefix of ['new','edit']){
 }
 $('newCountry').value='México';countryChanged('new');
 $('editCountry').value='México';countryChanged('edit');
+// Videoteca privada: Firestore autoriza la interfaz y Google Drive protege el archivo.
+const FIX_VIDEO_ID='resina-fixnail';
+const FIX_VIDEO_DRIVE_ID='14sq9KBSd5UXEnWe1YbowLGcMmpx06vLv';
+let fixActiveUser=null,fixVideoEditUid=null,fixVideoViewGeneration=0;
+function fixHideSections(){
+  $('fixDashboard').classList.add('hidden');$('fixNavigation').classList.add('hidden');
+  $('fixVideoSection').classList.add('hidden');$('adminTools').classList.add('hidden');
+  $('sumhaFrame').classList.add('hidden');$('fixVideoPlayer').replaceChildren();
+}
+function fixShowDashboard(){
+  fixVideoViewGeneration++;
+  fixHideSections();closeSUMHA();document.querySelector('main').classList.add('wide');
+  $('fixDashboard').classList.remove('hidden');
+  $('fixOpenAdmin').classList.toggle('hidden',!isAdmin);
+}
+function fixShowSection(section,title){
+  fixHideSections();$('fixNavigation').classList.remove('hidden');
+  $('fixSectionTitle').textContent=title;
+  if(section==='sumha'){$('sumhaFrame').classList.remove('hidden');openSUMHA();}
+  if(section==='videos'){$('fixVideoSection').classList.remove('hidden');fixLoadVideoAccess();}
+  if(section==='admin'&&isAdmin){$('adminTools').classList.remove('hidden');refreshSpecialists();}
+}
+async function fixLoadVideoAccess(){
+  const generation=++fixVideoViewGeneration,user=auth.currentUser;
+  $('fixVideoLoading').classList.remove('hidden');$('fixVideoAllowed').classList.add('hidden');$('fixVideoDenied').classList.add('hidden');
+  $('fixVideoPlayer').replaceChildren();
+  if(!user)return;
+  try{
+    const snap=await getDocFromServer(doc(db,'videoPermisos',user.uid));
+    if(generation!==fixVideoViewGeneration||auth.currentUser?.uid!==user.uid)return;
+    $('fixVideoLoading').classList.add('hidden');
+    const allowed=isAdmin || (snap.exists()&&snap.data().resinaFixNail===true);
+    if(!allowed){$('fixVideoDenied').classList.remove('hidden');return;}
+    $('fixVideoAllowed').classList.remove('hidden');
+    const iframe=document.createElement('iframe');
+    iframe.title='Aplicación exitosa de resina FixNail';
+    iframe.allow='autoplay; fullscreen';iframe.allowFullscreen=true;
+    iframe.referrerPolicy='strict-origin-when-cross-origin';
+    iframe.src='https://drive.google.com/file/d/'+FIX_VIDEO_DRIVE_ID+'/preview';
+    $('fixVideoPlayer').append(iframe);
+  }catch(e){
+    if(generation!==fixVideoViewGeneration)return;
+    $('fixVideoLoading').textContent='No fue posible verificar los permisos del video. Revisa las reglas de Firestore: '+(e.code||e.message);
+  }
+}
+async function openVideoPermissions(uid,name){
+  if(!isAdmin)return;
+  fixVideoEditUid=uid;$('fixVideoAdminName').textContent='Permisos de video: '+name;
+  $('fixVideoAdmin').classList.remove('hidden');$('fixVideoPermissionCheck').disabled=true;
+  setStatus('fixVideoPermissionStatus','Consultando permiso…');
+  try{
+    const snap=await getDocFromServer(doc(db,'videoPermisos',uid));
+    if(fixVideoEditUid!==uid)return;
+    $('fixVideoPermissionCheck').checked=snap.exists()&&snap.data().resinaFixNail===true;
+    setStatus('fixVideoPermissionStatus','Permiso actual cargado.');
+  }catch(e){setStatus('fixVideoPermissionStatus','Error al consultar: '+(e.code||e.message),true);}
+  finally{if(fixVideoEditUid===uid)$('fixVideoPermissionCheck').disabled=false;}
+  $('fixVideoAdmin').scrollIntoView({behavior:'smooth',block:'center'});
+}
+$('fixSaveVideoPermission').addEventListener('click',async()=>{
+  if(!isAdmin||!fixVideoEditUid)return;
+  const btn=$('fixSaveVideoPermission');btn.disabled=true;
+  try{
+    await setDoc(doc(db,'videoPermisos',fixVideoEditUid),{resinaFixNail:$('fixVideoPermissionCheck').checked,actualizadoEn:serverTimestamp()});
+    setStatus('fixVideoPermissionStatus','Permiso guardado correctamente en Firebase.');
+    fixPermissionCache.set(fixVideoEditUid,$('fixVideoPermissionCheck').checked?'autorizado':'no-autorizado');renderSpecialists();
+  }catch(e){setStatus('fixVideoPermissionStatus','No se pudo guardar: '+(e.code||e.message),true);}
+  finally{btn.disabled=false;}
+});
+$('fixCancelVideoPermission').addEventListener('click',()=>{fixVideoEditUid=null;$('fixVideoAdmin').classList.add('hidden');});
+$('fixOpenSumha').addEventListener('click',()=>fixShowSection('sumha','Sistema SUMHA'));
+$('fixOpenVideos').addEventListener('click',()=>fixShowSection('videos','Videoteca FixNail'));
+$('fixOpenAdmin').addEventListener('click',()=>fixShowSection('admin','Administración FixNail'));
+$('fixBackDashboard').addEventListener('click',fixShowDashboard);
 const loginForm=$('loginForm'),loginBtn=$('loginBtn');
 const sumhaEncoded=document.getElementById('sumhaPayload').textContent.trim();
 function openSUMHA(){const frame=$('sumhaFrame');if(frame.dataset.loaded)return;const bytes=Uint8Array.from(atob(sumhaEncoded),c=>c.charCodeAt(0));frame.srcdoc=new TextDecoder().decode(bytes);frame.dataset.loaded='1';}
@@ -68,18 +145,53 @@ $("editProfileForm").addEventListener("submit",async e=>{e.preventDefault();if(!
 const pub=publicCache.get(editingProfileId);
 if(pub){batch.update(publicRef(editingProfileId),{nombre:data.nombre,estado:data.estado,ciudad:data.ciudad,pais:data.pais,telefonoPublico:data.telefono,actualizadoEn:serverTimestamp()});}
 await batch.commit();hideProfileEditor();setStatus("adminStatus","Ficha del especialista actualizada.");await refreshSpecialists();}catch(err){setStatus("adminStatus","No se pudo guardar la ficha: "+(err.code||err.message),true);}finally{button.disabled=false;}});
+// La regla de Firestore permite get por UID, pero no list de videoPermisos.
+// Consultamos cada documento por separado para respetar esa regla.
+let fixPermissionCache=new Map(),fixPermissionLoadId=0;
+async function fixRefreshPermissionStatuses(){
+  if(!isAdmin)return;
+  const loadId=++fixPermissionLoadId;
+  fixPermissionCache=new Map();
+  for(const record of specialistCache)fixPermissionCache.set(record.id,'pendiente');
+  renderSpecialists();
+  const ids=specialistCache.map(r=>r.id);
+  let cursor=0,failures=0;
+  async function worker(){
+    while(cursor<ids.length && loadId===fixPermissionLoadId){
+      const uid=ids[cursor++];
+      try{
+        const snap=await getDocFromServer(doc(db,'videoPermisos',uid));
+        if(loadId!==fixPermissionLoadId)return;
+        fixPermissionCache.set(uid,snap.exists()&&snap.data().resinaFixNail===true?'autorizado':'no-autorizado');
+      }catch(e){
+        if(loadId!==fixPermissionLoadId)return;
+        fixPermissionCache.set(uid,'pendiente');failures++;
+      }
+      renderSpecialists();
+    }
+  }
+  await Promise.all(Array.from({length:Math.min(6,ids.length)},()=>worker()));
+  if(loadId!==fixPermissionLoadId)return;
+  if(failures)setStatus('adminStatus',`No se pudieron verificar ${failures} permisos. Se muestran como «Sin verificar»; comprueba tu conexión y las reglas de Firestore.`,true);
+}
 function renderSpecialists(){
   const body=$('specialistRows');body.replaceChildren();
   const query=$('searchSpecialists').value.trim().toLocaleLowerCase('es');
+  const selectedPermission=$('fixVideoFilter').value;
   const people=specialistCache.filter(record=>{
-    const u=record.data();
-    return !query || String(u.nombre||'').toLocaleLowerCase('es').includes(query) || [u.email,u.ciudad,u.estado,u.pais,u.telefono].some(v=>String(v||'').toLocaleLowerCase('es').includes(query));
+    const u=record.data(),status=fixPermissionCache.get(record.id)||'pendiente';
+    const matchesSearch=!query || String(u.nombre||'').toLocaleLowerCase('es').includes(query) || [u.email,u.ciudad,u.estado,u.pais,u.telefono].some(v=>String(v||'').toLocaleLowerCase('es').includes(query));
+    return matchesSearch && (selectedPermission==='todos'||selectedPermission===status);
   });
+  const allowedCount=specialistCache.filter(r=>fixPermissionCache.get(r.id)==='autorizado').length;
+  const deniedCount=specialistCache.filter(r=>fixPermissionCache.get(r.id)==='no-autorizado').length;
+  const pendingCount=specialistCache.length-allowedCount-deniedCount;
+  $('fixVideoCounts').textContent=`✓ ${allowedCount} autorizados · ✕ ${deniedCount} sin permiso · ? ${pendingCount} sin verificar`;
   $('countTotal').textContent=String(specialistCache.length);
   $('countActive').textContent=String(specialistCache.filter(r=>r.data().activo===true).length);
   $('countInactive').textContent=String(specialistCache.filter(r=>r.data().activo!==true).length);
-  $('searchResults').textContent=query ? `Resultados de búsqueda: ${people.length} de ${specialistCache.length}` : `Especialistas registrados: ${specialistCache.length}`;
-  if(!people.length){const tr=body.insertRow(),td=tr.insertCell();td.colSpan=8;td.textContent=query?'No se encontraron especialistas con ese nombre o correo.':'Aún no hay especialistas registrados.';return;}
+  $('searchResults').textContent=`Especialistas mostrados: ${people.length} de ${specialistCache.length}`;
+  if(!people.length){const tr=body.insertRow(),td=tr.insertCell();td.colSpan=10;td.textContent=query?'No se encontraron especialistas con ese nombre o correo.':'Aún no hay especialistas registrados.';return;}
   for(const record of people){
     const u=record.data(),tr=body.insertRow();
     tr.insertCell().textContent=u.nombre||'Sin nombre';
@@ -133,6 +245,15 @@ function renderSpecialists(){
       }catch(e){setStatus('adminStatus','No se pudo actualizar. Revisa las reglas de Firestore.',true);button.disabled=false;}
     };
     cell.append(button);
+    const statusCell=tr.insertCell(),status=fixPermissionCache.get(record.id)||'pendiente';
+    const statusBadge=document.createElement('span');
+    statusBadge.className='fix-video-pill '+(status==='autorizado'?'yes':status==='no-autorizado'?'no':'unknown');
+    statusBadge.textContent=status==='autorizado'?'✓ Autorizado':status==='no-autorizado'?'✕ Sin permiso':'? Sin verificar';
+    statusCell.append(statusBadge);
+    const videoCell=tr.insertCell(),videoButton=document.createElement('button');
+    videoButton.type='button';videoButton.textContent='Permisos de video';
+    videoButton.onclick=()=>openVideoPermissions(record.id,u.nombre||u.email||'Especialista');
+    videoCell.append(videoButton);
   }
 }
 async function refreshSpecialists(){
@@ -143,17 +264,19 @@ async function refreshSpecialists(){
      publicCache=new Map(pubDocs.docs.map(d=>[d.id,d.data()]));
     if(sequence!==refreshSequence||!isAdmin)return;
     specialistCache=docs.docs.filter(d=>d.data().rol==='especialista').sort((a,b)=>String(a.data().nombre||a.data().email||'').localeCompare(String(b.data().nombre||b.data().email||''),'es'));
-    renderSpecialists();
+    await fixRefreshPermissionStatuses();
   }catch(e){
     if(sequence!==refreshSequence)return;
     specialistCache=[];
     $('countTotal').textContent=$('countActive').textContent=$('countInactive').textContent='—';
     const body=$('specialistRows');body.replaceChildren();
-    const tr=body.insertRow(),td=tr.insertCell();td.colSpan=8;td.textContent='No se pudo consultar la lista. Verifica los permisos de Firestore.';
+    const tr=body.insertRow(),td=tr.insertCell();td.colSpan=10;td.textContent='No se pudo consultar la lista. Verifica los permisos de Firestore.';
     setStatus('adminStatus','Error al leer especialistas: '+(e.code||'desconocido'),true);
   }
 }
 $('searchSpecialists').addEventListener('input',renderSpecialists);
+$('fixVideoFilter').addEventListener('change',renderSpecialists);
+$('fixReloadVideoPermissions').addEventListener('click',fixRefreshPermissionStatuses);
 $('refreshSpecialists').addEventListener('click',refreshSpecialists);
 $('copyCredentials').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(lastCredentials);setStatus('adminStatus','Datos copiados. Compártelos únicamente por un medio privado.')}catch(e){setStatus('adminStatus','Selecciona y copia los datos manualmente.',true)}});
 $('newSpecialistForm').addEventListener('submit',async e=>{e.preventDefault();if(!isAdmin)return;const name=$('newName').value.trim(),email=$('newEmail').value.trim().toLowerCase(),telefono=cleanField('newPhone'),ciudad=selectedCity('new'),estado=selectedState('new'),pais=selectedCountry('new'),fechaIncorporacion=$('newJoinDate').value;if(!name||!email||!pais||!estado||!ciudad){setStatus('adminStatus','Completa nombre, correo, país, región y ciudad.',true);return;}const btn=$('createSpecialistBtn');btn.disabled=true;$('newCredentials').classList.add('hidden');setStatus('adminStatus','Creando cuenta…');let newUser=null;try{const existing=await getDocs(collection(db,'usuarios'));if(existing.docs.some(d=>String(d.data().email||'').toLowerCase()===email))throw new Error('Ese correo ya está registrado en la lista de usuarios.');const password=tempPassword();const result=await createUserWithEmailAndPassword(registrationAuth,email,password);newUser=result.user;await setDoc(doc(db,'usuarios',newUser.uid),{nombre:name,email,telefono,ciudad,estado,pais,fechaIncorporacion,rol:'especialista',activo:true,creadoEn:serverTimestamp(),creadoPor:auth.currentUser.uid});lastCredentials='Especialistas FixNail\nSitio: https://fixnailmexico.github.io/especialistas-fixnail/\nCorreo: '+email+'\nContraseña temporal: '+password;$('credentialsText').textContent=lastCredentials;$('newCredentials').classList.remove('hidden');$('newSpecialistForm').reset();$('newCountry').value='México';countryChanged('new');setStatus('adminStatus','Especialista registrado. Guarda la contraseña temporal antes de cerrar esta página.');await refreshSpecialists()}catch(err){setStatus('adminStatus',(err.code==='auth/email-already-in-use'?'Este correo ya tiene una cuenta de Firebase Authentication.':err.message||'No se pudo crear la cuenta.')+(newUser?' La cuenta de Authentication se creó, pero no se pudo autorizar en Firestore; requiere revisión manual.':''),true)}finally{try{await signOut(registrationAuth)}catch(e){}btn.disabled=false}});
@@ -169,7 +292,7 @@ async function revokeAccess(message){
   revoking=true;
   stopMonitoring();
   isAdmin=false;hideProfileEditor();
-  $('adminTools').classList.add('hidden');
+  fixHideSections();
   $('panelView').classList.add('hidden');
   closeSUMHA();
   try{await signOut(auth);}catch(e){}
@@ -180,22 +303,21 @@ async function revokeAccess(message){
 function authorized(profile){return profile && profile.activo===true && ['administrador','especialista'].includes(profile.rol);}
 function showAuthorizedUser(user,profile){
   isAdmin=profile.rol==='administrador';
-  $('adminTools').classList.toggle('hidden',!isAdmin);
-  if(isAdmin)refreshSpecialists();
+  $('adminTools').classList.add('hidden');
   $('welcome').textContent='Bienvenido a Especialistas FixNail';
   $('roleLabel').textContent=isAdmin?'Cuenta de administrador':'Cuenta de especialista';
   $('panelInfo').textContent='Sesión autorizada: '+(user.email||'');
   $('loginView').classList.add('hidden');
   $('panelView').classList.remove('hidden');
   document.querySelector('main').classList.add('wide');
-  openSUMHA();
+  fixShowDashboard();
 }
 onAuthStateChanged(auth,async user=>{
   const generation=++authGeneration;
   stopMonitoring();
   if(!user){
     hideProfileEditor();isAdmin=false;
-    $('adminTools').classList.add('hidden');
+    fixHideSections();
     $('loginView').classList.remove('hidden');
     $('panelView').classList.add('hidden');
     closeSUMHA();
