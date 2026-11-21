@@ -185,14 +185,14 @@ let refreshSequence=0;
 let editingProfileId=null;
 const profileFields=["nombre","telefono","ciudad","estado","pais","fechaIncorporacion"];
 function publicRef(uid){return doc(db,"especialistasPublicos",uid);}
-function publicFields(u,uid){return {usuarioId:uid,nombre:String(u.nombre||""),estado:String(u.estado||""),ciudad:String(u.ciudad||""),pais:String(u.pais||"México"),telefonoPublico:String(u.telefono||""),activo:u.activo===true,autorizado:true,publicado:true,...(Number.isFinite(Number(u.latitud))&&Number.isFinite(Number(u.longitud))&&u.latitud!==undefined&&u.longitud!==undefined?{latitud:Number(u.latitud),longitud:Number(u.longitud),lat:Number(u.latitud),lng:Number(u.longitud)}:{}),actualizadoEn:serverTimestamp()};}
+function publicFields(u,uid){return {usuarioId:uid,nombre:String(u.nombre||""),estado:String(u.estado||""),ciudad:String(u.ciudad||""),pais:String(u.pais||"México"),telefonoPublico:String(u.telefono||""),activo:u.activo===true,autorizado:true,publicado:true,...(Number.isFinite(Number(u.latitud))&&Number.isFinite(Number(u.longitud))&&u.latitud!==undefined&&u.longitud!==undefined?{latitud:Number(u.latitud),longitud:Number(u.longitud)}:{}),actualizadoEn:serverTimestamp()};}
 
 function cleanField(id){return $(id).value.trim();}
 function hideProfileEditor(){editingProfileId=null;$("profileEditor").classList.add("hidden");}
 $("cancelProfile").addEventListener("click",hideProfileEditor);
 $("editProfileForm").addEventListener("submit",async e=>{e.preventDefault();if(!isAdmin||!editingProfileId)return;const button=$("saveProfile");button.disabled=true;try{const data={nombre:cleanField("editName"),telefono:cleanField("editPhone"),ciudad:selectedCity("edit"),estado:selectedState("edit"),pais:selectedCountry("edit"),fechaIncorporacion:$("editJoinDate").value,actualizadoEn:serverTimestamp()};if(!data.nombre||!data.pais||!data.estado||!data.ciudad)throw new Error("Completa nombre, país, estado y ciudad.");const batch=writeBatch(db);batch.update(doc(db,"usuarios",editingProfileId),data);
 const pub=publicCache.get(editingProfileId);
-if(pub){batch.update(publicRef(editingProfileId),{nombre:data.nombre,estado:data.estado,ciudad:data.ciudad,pais:data.pais,telefonoPublico:data.telefono,latitud:null,longitud:null,lat:null,lng:null,actualizadoEn:serverTimestamp()});}
+if(pub){batch.update(publicRef(editingProfileId),{nombre:data.nombre,estado:data.estado,ciudad:data.ciudad,pais:data.pais,telefonoPublico:data.telefono,latitud:null,longitud:null,ubicacionVerificada:false,actualizadoEn:serverTimestamp()});}
 await batch.commit();hideProfileEditor();setStatus("adminStatus","Ficha del especialista actualizada.");await refreshSpecialists();}catch(err){setStatus("adminStatus","No se pudo guardar la ficha: "+(err.code||err.message),true);}finally{button.disabled=false;}});
 // La regla de Firestore permite get por UID, pero no list de videoPermisos.
 // Consultamos cada documento por separado para respetar esa regla.
@@ -336,7 +336,7 @@ async function fixVerifyLocation(uid,u){
         if(fixGeoTarget!==uid)return;
         const lat=Number(place.lat),lng=Number(place.lon);
         if(!Number.isFinite(lat)||!Number.isFinite(lng))return;
-        fixGeoChoice={latitud:lat,longitud:lng,lat,lng};$('fixGeoSave').disabled=false;
+        fixGeoChoice={latitud:lat,longitud:lng,ubicacionVerificada:true,ubicacionFuente:'OpenStreetMap Nominatim',ubicacionEtiqueta:String(place.display_name||'')};$('fixGeoSave').disabled=false;
         $('fixGeoPreview').replaceChildren();
         const info=document.createElement('p');info.textContent='Punto seleccionado: '+lat.toFixed(6)+', '+lng.toFixed(6);
         const a=document.createElement('a');a.href='https://www.openstreetmap.org/?mlat='+lat+'&mlon='+lng+'#map=13/'+lat+'/'+lng;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Abrir punto en OpenStreetMap';
@@ -352,9 +352,9 @@ $('fixGeoSave').addEventListener('click',async()=>{
   if(!isAdmin||!fixGeoTarget||!fixGeoChoice)return;
   const uid=fixGeoTarget,choice={...fixGeoChoice},btn=$('fixGeoSave');btn.disabled=true;
   try{
-    const batch=writeBatch(db);batch.update(doc(db,'usuarios',uid),{...choice,actualizadoEn:serverTimestamp()});
-    if(publicCache.has(uid))batch.update(publicRef(uid),{...choice,actualizadoEn:serverTimestamp()});
-    await batch.commit();setStatus('fixGeoStatus','Ubicación verificada y guardada en Firebase.');await refreshSpecialists();
+    if(!publicCache.has(uid))throw new Error('Primero debes autorizar al especialista en el mapa público.');
+    await updateDoc(publicRef(uid),{...choice,actualizadoEn:serverTimestamp()});
+    setStatus('fixGeoStatus','Ubicación verificada y guardada en Firebase.');await refreshSpecialists();
   }catch(err){setStatus('fixGeoStatus','Error al guardar: '+(err.code||err.message),true);}
   finally{btn.disabled=false;}
 });
