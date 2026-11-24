@@ -70,7 +70,7 @@ async function fixPrivateVideoPlayer(path,title){
   const blob=await getBlob(storageRef(storage,path));
   const url=URL.createObjectURL(blob);
   const video=document.createElement('video');
-  video.controls=true;video.playsInline=true;video.preload='metadata';video.title=title;
+  video.controls=true;video.controlsList.add('nodownload');video.disablePictureInPicture=true;video.playsInline=true;video.preload='metadata';video.title=title;video.addEventListener('contextmenu',event=>event.preventDefault());
   video.style.cssText='width:100%;aspect-ratio:16/9;border-radius:12px;background:#111';
   video.src=url;
   video.addEventListener('error',()=>URL.revokeObjectURL(url),{once:true});
