@@ -206,7 +206,7 @@ function fixRenderRequests(){
   const alta=document.createElement('button');alta.type='button';alta.className='fix-request-alta';
   alta.textContent='Dar de alta como especialista';
   alta.title='Copia los datos al formulario administrativo. No crea la cuenta automáticamente.';
-  alta.onclick=()=>fixPrepareSpecialistFromRequest(record);
+  alta.onclick=()=>{try{fixPrepareSpecialistFromRequest(record);}catch(err){const msg='No se pudo abrir el formulario: '+(err.message||String(err));setStatus('fixRequestStatus',msg,true);alert(msg);}};
   actions.append(select,button,alta);card.append(actions);list.append(card);
  }
 }
@@ -216,7 +216,15 @@ function fixPrepareSpecialistFromRequest(record){
  if(!isAdmin||!auth.currentUser)return;
  const d=record.data();
  const existing=specialistCache.some(r=>String(r.data().email||'').trim().toLowerCase()===String(d.email||'').trim().toLowerCase());
- if(existing){setStatus('fixRequestStatus','Ya existe un especialista con ese correo en usuarios. Revisa su ficha antes de crear otra cuenta.',true);return;}
+ if(existing){
+  fixSetAdminTab('specialists');
+  $('searchSpecialists').value=String(d.email||'').trim();
+  renderSpecialists();
+  const notice='Este correo ya tiene una cuenta de especialista. Se filtró su ficha para que puedas abrir «Editar» y usar «Recuperar datos de solicitud anterior». No se creará una cuenta duplicada.';
+  setStatus('adminStatus',notice);
+  $('searchSpecialists').scrollIntoView({behavior:'smooth',block:'center'});
+  return;
+ }
  if(d.estadoSolicitud==='rechazada'){
   if(!confirm('Esta solicitud está rechazada. ¿Quieres copiar sus datos para revisión de todas formas? No se creará ninguna cuenta todavía.'))return;
  }
